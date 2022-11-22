@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
