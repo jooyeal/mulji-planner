@@ -72,7 +72,7 @@ const Header = () => {
           <Link href="/guide">
             <p>이용 가이드</p>
           </Link>
-          {supportsPWA && <p onClick={onClick}>앱 다운로드</p>}
+          <p onClick={onClick}>앱 다운로드</p>
         </div>
       </div>
     </>
