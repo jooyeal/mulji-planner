@@ -40,6 +40,9 @@ const Header = () => {
           />
         </div>
         <div className="flex flex-col items-center text-white gap-6 p-8">
+          <Link href="/">
+            <p>홈 화면</p>
+          </Link>
           <Link href="/past">
             <p>과거 일정 확인</p>
           </Link>

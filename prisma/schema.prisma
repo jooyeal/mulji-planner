@@ -19,4 +19,5 @@ model Plan {
   budget Int
   startDate DateTime
   endDate DateTime
+  isOver Boolean @default(false)
 }
