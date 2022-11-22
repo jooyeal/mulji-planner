@@ -19,7 +19,16 @@ export default function Document() {
         sizes="32x32"
       />
       <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
-      <meta name="msapplication-TileColor" content="#FF98BA"></meta>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="true"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+        rel="stylesheet"
+      />
       <body>
         <Main />
         <NextScript />
