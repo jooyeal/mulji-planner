@@ -6,30 +6,10 @@ import { IoMdClose } from "react-icons/io";
 
 const Header = () => {
   const router = useRouter();
-  const [supportsPWA, setSupportsPWA] = useState(false);
-  const [promptInstall, setPromptInstall] = useState<any>(null);
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     setOpen(false);
   }, [router.pathname]);
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setSupportsPWA(true);
-      setPromptInstall(e);
-    };
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("transitionend", handler);
-  }, []);
-
-  const onClick = (e: any) => {
-    e.preventDefault();
-    if (!promptInstall) {
-      return;
-    }
-    promptInstall.prompt();
-  };
 
   return (
     <>
@@ -72,7 +52,6 @@ const Header = () => {
           <Link href="/guide">
             <p>이용 가이드</p>
           </Link>
-          <p onClick={onClick}>앱 다운로드</p>
         </div>
       </div>
     </>

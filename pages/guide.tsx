@@ -20,9 +20,6 @@ const Guide = (props: Props) => {
         <p className="text-xl">새로운 일정 추가</p>
         <p>일정 추가 화면으로 이동</p>
         <br />
-        <p className="text-xl">앱 다운로드</p>
-        <p>기기에 앱을 다운로드함</p>
-        <br />
       </div>
     </div>
   );
