@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 
 const Header = () => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    setOpen(false);
+  }, [router.pathname]);
+
   return (
     <>
-      <div className="w-full h-16 fixed text-white pl-4 pr-4 flex justify-between items-center z-30 top-0 border-b">
+      <div className="w-full h-16 fixed text-white pl-4 pr-4 flex justify-between items-center z-30 top-0 border-b bg-black opacity-90">
         <div>
           <BiMenu
             className="cursor-pointer"
@@ -15,7 +22,9 @@ const Header = () => {
           />
         </div>
         <div className="text-white">
-          <p>물지 플래너</p>
+          <Link href="/">
+            <p>물지 플래너</p>
+          </Link>
         </div>
       </div>
       <div
@@ -29,6 +38,14 @@ const Header = () => {
             size={20}
             onClick={() => setOpen(false)}
           />
+        </div>
+        <div className="flex flex-col items-center text-white gap-6 p-8">
+          <Link href="/past">
+            <p>과거 일정 확인</p>
+          </Link>
+          <Link href="/regist">
+            <p>새로운 일정 추가</p>
+          </Link>
         </div>
       </div>
     </>

@@ -13,6 +13,10 @@ datasource db {
 model Plan {
   id Int @id @default(autoincrement())
   title String
+  desc String
   manager String
   participants String[]
+  budget Int
+  startDate DateTime
+  endDate DateTime
 }
