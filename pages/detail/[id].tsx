@@ -9,16 +9,12 @@ import { RegistData } from "../regist";
 
 type Props = {
   status: number;
-  plan: Plan;
+  plan: Plan | null;
   message: string;
 };
 
 const Detail: React.FC<Props> = ({ status, plan, message }) => {
   const router = useRouter();
-
-  if (status !== 200) {
-    return <div>{message}</div>;
-  }
 
   const [update, setUpdate] = useState<boolean>(false);
   const [formData, setFormData] = useState<RegistData>();
@@ -26,15 +22,19 @@ const Detail: React.FC<Props> = ({ status, plan, message }) => {
 
   useEffect(() => {
     setFormData({
-      title: plan.title,
-      desc: plan.desc,
-      manager: plan.manager,
-      participants: plan.participants,
-      budget: plan.budget,
-      startData: plan.startDate,
-      endDate: plan.endDate,
+      title: plan?.title,
+      desc: plan?.desc,
+      manager: plan?.manager,
+      participants: plan?.participants,
+      budget: plan?.budget,
+      startData: plan?.startDate,
+      endDate: plan?.endDate,
     });
   }, [plan]);
+
+  if (status !== 200 || plan === null) {
+    return <div>{message}</div>;
+  }
 
   const onOver = async () => {
     const res = await axios.post(
