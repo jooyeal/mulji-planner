@@ -2,7 +2,6 @@ import { Plan } from "@prisma/client";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import PlanComponent from "../components/Plan";
 import { IoIosRefresh } from "react-icons/io";
 
