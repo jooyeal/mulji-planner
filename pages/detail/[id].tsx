@@ -14,11 +14,12 @@ type Props = {
 };
 
 const Detail: React.FC<Props> = ({ status, plan, message }) => {
+  const router = useRouter();
+
   if (status !== 200) {
     return <div>{message}</div>;
   }
 
-  const router = useRouter();
   const [update, setUpdate] = useState<boolean>(false);
   const [formData, setFormData] = useState<RegistData>();
   const [error, setError] = useState<string | undefined>();
