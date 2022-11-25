@@ -46,8 +46,8 @@ const Header = () => {
           <Link href="/past">
             <p>과거 일정 확인</p>
           </Link>
-          <Link href="/regist">
-            <p>새로운 일정 추가</p>
+          <Link href="/schedule">
+            <p>일정 맞추기</p>
           </Link>
           <Link href="/gurume">
             <p>맛집 추천</p>
