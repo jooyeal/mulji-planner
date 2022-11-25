@@ -21,3 +21,13 @@ model Plan {
   endDate DateTime
   isOver Boolean @default(false)
 }
+
+model Gurume {
+  id Int @id @default(autoincrement())
+  title String
+  desc String
+  mainmenu String
+  address String
+  writer String
+  image String?
+}

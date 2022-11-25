@@ -32,7 +32,7 @@ const Detail: React.FC<Props> = ({ status, plan, message }) => {
     });
   }, [plan]);
 
-  if (status !== 200 || plan === null) {
+  if (status !== 200 || plan === null || plan === undefined) {
     return <div>{message}</div>;
   }
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 
@@ -48,6 +48,9 @@ const Header = () => {
           </Link>
           <Link href="/regist">
             <p>새로운 일정 추가</p>
+          </Link>
+          <Link href="/gurume">
+            <p>맛집 추천</p>
           </Link>
           <Link href="/guide">
             <p>이용 가이드</p>
