@@ -3,22 +3,64 @@ import React, { useState } from "react";
 import Input from "../../components/molecule/Input";
 import Label from "../../components/molecule/Label";
 import { BiTrash } from "react-icons/bi";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { Schedule } from "@prisma/client";
 
 type Props = {
-  name: string;
+  data: {
+    name: string;
+    status: number;
+    schedule: Schedule | null;
+    message: string;
+  };
 };
 
-const ScheduleRegist: React.FC<Props> = ({ name }) => {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [dates, setDates] = useState<Date[]>([]);
+export type ScheduleRegistData = {
+  writer: string;
+  availableDates: Date[];
+};
+
+const ScheduleRegist: React.FC<Props> = ({
+  data: { name, schedule, message },
+}) => {
+  const router = useRouter();
+  const [currentDate, setCurrentDate] = useState<Date>();
+  const [dates, setDates] = useState<string[]>(
+    (schedule?.availableDates as string[] | undefined) ?? []
+  );
   const [error, setError] = useState<string>();
+
+  const onClick = async () => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_HOST_URL}/api/schedule/regist`,
+      {
+        data: {
+          writer: name,
+          availableDates: dates,
+        },
+      }
+    );
+    if (res.status === 200) {
+      toast.success("등록에 성공했습니다", {
+        position: "bottom-center",
+        autoClose: 2000,
+      });
+      router.push("/schedule");
+    } else {
+      toast.error("에러가 발생했습니다. 관리자에게 문의해주세요.", {
+        position: "bottom-center",
+        autoClose: 2000,
+      });
+    }
+  };
   return (
     <div>
-      <Label type="title">현재 개발중인 페이지입니다.</Label>
       <Label type="title">안녕하십니까 {name}!</Label>
       <br />
       <Label type="subtitle">
-        참가 가능한 일정을 선택후 추가하기를 눌러주세요(여러번 가능)
+        참가 가능한 날짜를 선택후 추가하기를 눌러주세요(여러번 가능)
       </Label>
       <Input
         type="date"
@@ -27,11 +69,13 @@ const ScheduleRegist: React.FC<Props> = ({ name }) => {
       <button
         className="p-1 border rounded-lg w-full mt-2"
         onClick={() => {
-          if (dates.includes(currentDate)) {
-            setError("같은 날짜가 이미 추가 되어있습니다.");
+          if (!currentDate) {
+            setError("날짜를 선택해주세요");
+          } else if (dates.includes(new Date(currentDate).toISOString())) {
+            setError("같은 날짜가 이미 추가 되어있습니다");
           } else {
             setError(undefined);
-            setDates((prev) => [...prev, currentDate]);
+            setDates((prev) => [...prev, new Date(currentDate).toISOString()]);
           }
         }}
       >
@@ -39,14 +83,14 @@ const ScheduleRegist: React.FC<Props> = ({ name }) => {
       </button>
       {error && <p className="text-red-400">{error}</p>}
       <div className="flex flex-col items-center mt-5">
-        <Label type="subtitle">추가한 날짜 리스트</Label>
+        <Label type="subtitle">{name}님이 추가한 참여가능한 날짜 리스트</Label>
         <div className="flex flex-col items-center gap-2 w-full">
           {dates.map((date, index) => (
             <div
               key={index}
               className="border w-full p-2 rounded-lg flex justify-between items-center"
             >
-              <p>{date.toISOString().split("T")[0]}</p>
+              <p>{new Date(date).toISOString().split("T")[0]}</p>
               <BiTrash
                 onClick={() =>
                   setDates((prev) => prev.filter((_, i) => index !== i))
@@ -56,6 +100,11 @@ const ScheduleRegist: React.FC<Props> = ({ name }) => {
           ))}
         </div>
       </div>
+      <div>
+        <button className="border p-1 w-full rounded-lg mt-4" onClick={onClick}>
+          보존
+        </button>
+      </div>
     </div>
   );
 };
@@ -63,9 +112,30 @@ const ScheduleRegist: React.FC<Props> = ({ name }) => {
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_HOST_URL}/api/schedule/get`,
+    { params: { writer: ctx.params?.name } }
+  );
+  if (res.status === 200) {
+    return {
+      props: {
+        data: {
+          name: ctx.params?.name,
+          status: 200,
+          schedule: res.data.schedule,
+          message: res.data.message,
+        },
+      },
+    };
+  }
   return {
     props: {
-      name: ctx.params?.name,
+      data: {
+        name: ctx.params?.name,
+        status: res.status,
+        schedule: null,
+        message: res.data.message,
+      },
     },
   };
 };

@@ -31,3 +31,9 @@ model Gurume {
   writer String
   image String?
 }
+
+model Schedule {
+  id Int @id @default(autoincrement())
+  writer String @unique
+  availableDates DateTime[]
+}

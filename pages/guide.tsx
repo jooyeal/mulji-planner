@@ -17,8 +17,15 @@ const Guide = (props: Props) => {
         <p className="text-xl">과거 일정 확인</p>
         <p>이미 지난 일정을 표시</p>
         <br />
-        <p className="text-xl">새로운 일정 추가</p>
-        <p>일정 추가 화면으로 이동</p>
+        <p className="text-xl">일정 맞추기</p>
+        <p>
+          자신이 참가가능한 날짜를 선택하여 추가하면, 메인 페이지에서는 멤버와
+          월(月)을 선택하여 어떤 날짜에 다 함께 모일 수 있는지 계산되어
+          출력된다.
+        </p>
+        <br />
+        <p className="text-xl">맛집 추천</p>
+        <p>자신이 추천하는 맛집을 투고하는 곳 사진업로드도 추가예정</p>
         <br />
       </div>
     </div>
