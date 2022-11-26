@@ -1,12 +1,11 @@
 {
   "theme_color": "#000",
-  "background_color": "#000",
+  "background_color": "#fff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "\ubb3c\uc9c0",
   "short_name": "\ubb3c\uc9c0",
-  "orientation": "any",
   "icons": [
     {
       "src": "/icon-192x192.png",
