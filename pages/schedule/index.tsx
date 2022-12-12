@@ -52,7 +52,7 @@ const Schedule = (props: Props) => {
             <BiPlus size={30} />
           </p>
         </Link>
-        <Label type="title">멤버가 모일수 있는 날짜</Label>
+        <Label type="title">일정 맞추기</Label>
         <br />
         <Label type="subtitle">
           참가 가능 날짜를 추가하려면 우하단의 아이콘을 클릭하세요
