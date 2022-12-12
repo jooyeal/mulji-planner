@@ -6,7 +6,7 @@ const withPWA = require("next-pwa")({
 });
 
 cron.schedule("* * * * *", async () => {
-  await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/mail/send`);
+  // await axios.post(`${process.env.NEXT_PUBLIC_HOST_URL}/api/mail/send`);
 });
 
 module.exports = withPWA({
