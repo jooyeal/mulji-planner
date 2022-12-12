@@ -1,10 +1,10 @@
-import { createFunction } from "inngest";
+import { createScheduledFunction } from "inngest";
 import { serve } from "inngest/next";
 import nodemailer from "nodemailer";
-const myFn = createFunction(
+const myFn = createScheduledFunction(
   "Email send function",
-  "send mail",
-  async ({ event }) => {
+  "* * * * *",
+  async () => {
     const HOST_EMAIL = "jyol1234@gmail.com";
     const transporter = nodemailer.createTransport({
       service: "gmail",
