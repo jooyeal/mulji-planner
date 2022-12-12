@@ -29,8 +29,10 @@ export default async function handler(
     function (error, info) {
       if (error) {
         console.error(error);
+        return res.status(500).json("mail send error");
       } else {
         console.log(`Email sent: ${info.response}`);
+        return res.status(200).json("mail send success");
       }
     }
   );
