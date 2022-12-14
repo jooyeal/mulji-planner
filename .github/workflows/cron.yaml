@@ -1,14 +1,12 @@
 name: daily-cron
 on:
   schedule:
-    - cron: "0 14 * * *"
+    - cron: "0 6 * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
       - name: Send a birthday mail
-        env:
-          TZ: "Asia/Tokyo"
         run: |
           curl --request POST \
           --url 'https://mulji-planner.vercel.app/api/mail/cron' \
