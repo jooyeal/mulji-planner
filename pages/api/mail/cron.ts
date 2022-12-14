@@ -3,10 +3,15 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
 const birthdays = [
-  { day: "12-29", name: "주열" },
-  { day: "12-14", name: "테스트" },
   { day: "12-15", name: "테스트" },
+  { day: "3-28", name: "대현" },
+  { day: "4-6", name: "건" },
+  { day: "7-11", name: "병준" },
+  { day: "8-25", name: "종찬" },
+  { day: "12-29", name: "주열" },
 ];
+
+const emails = ["gunnkeem@gmail.com", "jyol1234@gmail.com"];
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,23 +31,26 @@ export default async function handler(
   const today = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
   birthdays.forEach((bd) => {
     if (bd.day === today) {
-      transporter.sendMail(
-        {
-          from: HOST_EMAIL,
-          to: HOST_EMAIL,
-          subject: `${bd.name} 생일 축하 합니다~~~~~~`,
-          text: `${bd.name}이가 오늘 생일입니다잉~`,
-        },
-        function (error, info) {
-          if (error) {
-            console.error(error);
-            return res.status(500).json("mail send error");
-          } else {
-            console.log(`Email sent: ${info.response}`);
-            return res.status(200).json("mail send success");
+      emails.forEach((email) => {
+        transporter.sendMail(
+          {
+            from: HOST_EMAIL,
+            to: email,
+            subject: `${bd.name}이에게 생일 축하 합시다`,
+            text: `${bd.name}이가 오늘 생일입니다잉~`,
+          },
+          function (error, info) {
+            if (error) {
+              console.error(error);
+              return res.status(500).json("mail send error");
+            } else {
+              console.log(`Email sent: ${info.response}`);
+            }
           }
-        }
-      );
+        );
+      });
     }
   });
+
+  return res.status(200).json("mail send success");
 }
