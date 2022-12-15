@@ -31,24 +31,24 @@ export default async function handler(
   const today = `${new Date().getMonth() + 1}-${new Date().getDate()}`;
   birthdays.forEach((bd) => {
     if (bd.day === today) {
-      emails.forEach((email) => {
-        transporter.sendMail(
-          {
-            from: HOST_EMAIL,
-            to: email,
-            subject: `${bd.name}이에게 생일 축하 합시다`,
-            text: `${bd.name}이가 오늘 생일입니다잉~`,
-          },
-          function (error, info) {
-            if (error) {
-              console.error(error);
-              return res.status(500).json("mail send error");
-            } else {
-              console.log(`Email sent: ${info.response}`);
-            }
+      // emails.forEach((email) => {
+      transporter.sendMail(
+        {
+          from: HOST_EMAIL,
+          to: "jyol1234@gmail.com",
+          subject: `${bd.name}이에게 생일 축하 합시다`,
+          text: `${bd.name}이가 오늘 생일입니다잉~`,
+        },
+        function (error, info) {
+          if (error) {
+            console.error(error);
+            return res.status(500).json("mail send error");
+          } else {
+            console.log(`Email sent: ${info.response}`);
           }
-        );
-      });
+        }
+      );
+      // });
     }
   });
 
