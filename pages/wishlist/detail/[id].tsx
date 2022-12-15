@@ -37,6 +37,7 @@ const WishListDetail: React.FC<Props> = ({ data: { list, message } }) => {
     new: false,
     old: false,
   });
+  const [error, setError] = useState<string | null>();
 
   if (message) {
     return (
@@ -223,16 +224,19 @@ const WishListDetail: React.FC<Props> = ({ data: { list, message } }) => {
           </div>
           <button
             className="text-white border rounded-lg p-2 w-full mt-4"
-            onClick={() =>
-              setItems((prev) => [
-                ...prev,
-                {
-                  title: itemInfo.title,
-                  quantity: itemInfo.quantity,
-                  unit: itemInfo.unit,
-                },
-              ])
-            }
+            onClick={() => {
+              if (
+                itemInfo.title !== "" &&
+                itemInfo.quantity !== 0 &&
+                itemInfo.unit !== ""
+              ) {
+                setItems((prev) => [...prev, itemInfo]);
+                setItemInfo({ title: "", quantity: 0, unit: "개" });
+                setError(null);
+              } else {
+                setError("물품명과 개수,단위 를 입력해주세요");
+              }
+            }}
           >
             추가
           </button>
@@ -259,6 +263,7 @@ const WishListDetail: React.FC<Props> = ({ data: { list, message } }) => {
           >
             보존
           </button>
+          {error && <p className="text-center text-red-400">{error}</p>}
         </div>
         <hr className="mt-10" />
         <div className="flex justify-between">
