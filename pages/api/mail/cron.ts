@@ -24,7 +24,7 @@ export default async function handler(
     secure: true,
     auth: {
       user: HOST_EMAIL,
-      pass: process.env.MAIL_APP_SECRET ?? "",
+      pass: process.env.NEXT_PUBLIC_MAIL_APP_SECRET ?? "",
     },
   });
 
