@@ -35,7 +35,7 @@ export default async function handler(
         transporter.sendMail(
           {
             from: HOST_EMAIL,
-            to: "jyol1234@gmail.com",
+            to: email,
             subject: `${bd.name}이에게 생일 축하 합시다`,
             text: `${bd.name}이가 오늘 생일입니다잉~`,
           },
