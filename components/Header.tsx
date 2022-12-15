@@ -52,6 +52,9 @@ const Header = () => {
           <Link href="/gurume">
             <p>맛집 추천</p>
           </Link>
+          <Link href="/wishlist">
+            <p>장보기</p>
+          </Link>
           <Link href="/guide">
             <p>이용 가이드</p>
           </Link>

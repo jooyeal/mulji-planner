@@ -37,3 +37,19 @@ model Schedule {
   writer String @unique
   availableDates DateTime[]
 }
+
+model WishList {
+  id Int @id @default(autoincrement())
+  title String
+  items WishItem[]
+}
+
+model WishItem {
+  id Int @id @default(autoincrement())
+  title String
+  quantity Float
+  unit String
+  isPurchased Boolean @default(false)
+  listId Int
+  wishlist WishList @relation(fields: [listId], references: [id], onDelete: Cascade)
+}
