@@ -7,8 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const birthdays = [
-    { day: "12-14", name: "테스트" },
-    { day: "12-15", name: "테스트" },
     { day: "3-28", name: "대현" },
     { day: "4-6", name: "건" },
     { day: "7-11", name: "병준" },
