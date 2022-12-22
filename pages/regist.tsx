@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
-import { toast } from "react-toastify";
+import { registPlan } from "../service/main";
 
 type Props = {};
 
@@ -25,26 +24,10 @@ const Regist = (props: Props) => {
       setError("적어도 한명의 참여자를 체크해주세요");
     } else {
       setError(undefined);
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_HOST_URL}/api/regist`,
-        {
-          data: formData,
-        }
-      );
-      if (res.status === 200) {
-        toast.success("등록에 성공했습니다", {
-          position: "bottom-center",
-          autoClose: 2000,
-        });
-        router.push("/");
-      } else {
-        toast.error("에러가 발생했습니다. 관리자에게 문의해주세요.", {
-          position: "bottom-center",
-          autoClose: 2000,
-        });
-      }
+      await registPlan({ formData, router });
     }
   };
+
   return (
     <div className="text-white">
       <div>

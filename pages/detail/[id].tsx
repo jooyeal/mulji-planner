@@ -4,6 +4,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { ApiClient } from "../../service/apiClient";
 import { convertDate } from "../../utils/handleDate";
 import { RegistData } from "../regist";
 
@@ -37,24 +38,26 @@ const Detail: React.FC<Props> = ({ status, plan, message }) => {
   }
 
   const onOver = async () => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_HOST_URL}/api/over`,
-      {
+    const apiClient = new ApiClient();
+    await apiClient.POST<{ id: number }>({
+      path: "over",
+      data: {
         id: plan.id,
-      }
-    );
-    if (res.status === 200) {
-      toast.success("일정을 종료했습니다", {
-        position: "bottom-center",
-        autoClose: 2000,
-      });
-      router.push("/");
-    } else {
-      toast.error("에러가 발생했습니다. 관리자에게 문의해주세요.", {
-        position: "bottom-center",
-        autoClose: 2000,
-      });
-    }
+      },
+      onSuccess: () => {
+        toast.success("일정을 종료했습니다", {
+          position: "bottom-center",
+          autoClose: 2000,
+        });
+        router.push("/");
+      },
+      onError: () => {
+        toast.error("에러가 발생했습니다. 관리자에게 문의해주세요.", {
+          position: "bottom-center",
+          autoClose: 2000,
+        });
+      },
+    });
   };
 
   const onDelete = async () => {
