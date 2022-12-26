@@ -15,7 +15,7 @@ export class ApiClient {
     path: string;
     params?: Params;
   }): Promise<AxiosResponse> {
-    const res = await this.instance.get(path, params);
+    const res = await this.instance.get(path, { params });
     return res;
   }
 
