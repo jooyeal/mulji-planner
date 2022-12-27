@@ -6,8 +6,20 @@ export default async function handler(
   res: NextApiResponse<{ users?: User[]; message: string }>
 ) {
   try {
-    const users = await prisma.user.findMany();
-    res.status(200).json({ users, message: "성공" });
+    const email = req.query.email;
+    if (email && typeof email === "string") {
+      const users = await prisma.user.findMany({
+        where: {
+          NOT: {
+            email,
+          },
+        },
+      });
+      res.status(200).json({ users, message: "성공" });
+    } else {
+      const users = await prisma.user.findMany();
+      res.status(200).json({ users, message: "성공" });
+    }
   } catch (e) {
     res
       .status(500)
